@@ -6,5 +6,6 @@ if [ -z $NS_EXISTS ]; then
 fi
 
 ip netns exec nginx chroot /home/nginx /usr/local/nginx/sbin/nginx
-service php5-fpm start
+systemctl daemon-reload
+systemctl start php5-fpm
 /etc/init.d/tor-chroot start &> /dev/null

@@ -25,34 +25,56 @@ over ssh. This document assumes that console access is available.
 
 Setup steps for a freshly installed Debian Jessie server:
 
-* set hostname to "hidden":
-  * `hostname hidden`
-  * `echo hidden > /etc/hostname`
-* upgrade OS:
-  * `apt-get update`
-  * `apt-get -y upgrade`
-* add ntpdate to crontab
-  * `apt-get install ntpdate`
-  * `echo "@daily root ntpdate -u pool.ntp.org" >> /etc/crontab`
-* shutdown and disable ssh and ntp:
-  * `systemctl stop ssh`
-  * `systemctl disable ssh`
-  * `systemctl stop ntp`
-  * `systemctl disable ntp`
-* install git:
-  * `apt-get install git`
-* Run grsecurity-Debian-Installer:
-  * `git clone https://github.com/rickard2/grsecurity-Debian-Installer`
-  * `cd grsecurity-Debian-Installer`
-  * `make`
-* reboot:
+* Set hostname to "hidden":
+  * `hostname hidden`.
+  * `echo hidden > /etc/hostname`.
+  * `echo $'127.0.0.1 localhost\n127.0.0.1 hidden' > /etc/hosts`.
+* Upgrade OS:
+  * `apt-get update`.
+  * `apt-get upgrade`.
+* Add ntpdate to crontab
+  * `apt-get install ntpdate`.
+  * `echo "@daily root ntpdate -u pool.ntp.org" >> /etc/crontab`.
+* Disable and stop ssh and ntp:
+  * `systemctl stop ssh`.
+  * `systemctl disable ssh`.
+  * `systemctl stop ntp`.
+  * `systemctl disable ntp`.
+* Install git:
+  * `apt-get install git`.
+* Run grsecurity-Debian-Installer (as root):
+  * `cd ~`.
+  * `git clone https://github.com/rickard2/grsecurity-Debian-Installer`.
+  * `cd grsecurity-Debian-Installer`.
+  * `./usr/bin/grsecurity-installer`.
+  * Select the only available kernel option (must be a grsecurity supporter for stable).
+  * In the linux kernel configuration menu:
+    * Select "Security options", then
+    * Select "Grsecurity", then
+    * Enable "Grsecurity", then
+    * Select "Configuration Method", then
+    * Select "Automatic", then
+    * Select "Usage Type", then
+    * Enable "Server".
+    * If running as a Virtual Machine:
+      * Select "Virtualization Type", then
+      * Enable "Guest", then
+      * Select "Virtualisation Software", then
+      * Enable the appropriate option.
+    * Exit the submenus and you will be presented with a "Save" dialog, save.
+    * The kernel will compile and be installed as a debian package.
+* Reboot:
   * `reboot`
-* Run `bash build-nginx.sh`
-* Run `bash setup-ns.sh`
-* Run `bash setup-php.sh`
-* Run `bash chroot-nginx.sh`
-* Run `bash setup-tor.sh`
-* Run `bash init.sh`
+* Run hidden-nginx (as root):
+  * `cd ~`.
+  * `git clone https://github.com/sinner-/hidden-nginx`.
+  * `cd hidden-nginx`
+  * `bash build-nginx.sh`
+  * `bash setup-ns.sh`
+  * `bash setup-php.sh`
+  * `bash chroot-nginx.sh`
+  * `bash setup-tor.sh`
+  * `bash init.sh`
 
 # Destroy
 

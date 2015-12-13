@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-apt-get -y install tor git
-service tor stop
+apt-get install tor
+systemctl stop tor
+systemctl disable tor
 git clone https://github.com/sinner-/tor-chroot
 cd tor-chroot
 make install

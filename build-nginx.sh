@@ -5,7 +5,7 @@ set -e
 NGINX_VERSION="1.9.9"
 NGINX_TARBALL="nginx-${NGINX_VERSION}.tar.gz"
 
-apt-get -y install libxslt1-dev libxml2-dev zlib1g-dev libpcre3-dev libbz2-dev build-essential
+apt-get install libxslt1-dev libxml2-dev zlib1g-dev libpcre3-dev libbz2-dev build-essential
 
 rm -rf nginx-${NGINX_VERSION}
 wget "http://nginx.org/download/${NGINX_TARBALL}"
