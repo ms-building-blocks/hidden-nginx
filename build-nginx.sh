@@ -2,10 +2,10 @@
 
 set -e
 
-NGINX_VERSION="1.7.11"
+NGINX_VERSION="1.9.9"
 NGINX_TARBALL="nginx-${NGINX_VERSION}.tar.gz"
 
-sudo apt-get -y install libxslt1-dev libxml2-dev zlib1g-dev libpcre3-dev libbz2-dev build-essential
+apt-get -y install libxslt1-dev libxml2-dev zlib1g-dev libpcre3-dev libbz2-dev build-essential
 
 rm -rf nginx-${NGINX_VERSION}
 wget "http://nginx.org/download/${NGINX_TARBALL}"
@@ -44,4 +44,4 @@ cd "nginx-${NGINX_VERSION}"
 
 sed -i "/CFLAGS/s/ \-O //g" objs/Makefile
 
-make && sudo make install
+make && make install
